@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 
 class InstagramConnectStep extends StatelessWidget {
-  final GlobalKey<FormState> formKey;
-  final Function(Map<String, dynamic>) onSaved;
+  final bool retry;
 
   const InstagramConnectStep({
     super.key,
-    required this.formKey,
-    required this.onSaved,
+    this.retry = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: ListView(
+    return Padding(
         padding: const EdgeInsets.all(16),
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Nom'),
-            validator: (value) =>
-                value?.isEmpty ?? true ? 'Ce champ est requis' : null,
-            onSaved: (value) => onSaved({'lastName': value}),
-          ),
-        ],
-      ),
-    );
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              retry
+                  ? "Toujours pas envie de te connecter a Instagram ?"
+                  : "On se connecte a ton compte Instagram ?",
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+                onPressed: () {},
+                child:
+                    Text(retry ? "Aller ça part !" : "Direction L'espace !")),
+          ],
+        ));
   }
 }

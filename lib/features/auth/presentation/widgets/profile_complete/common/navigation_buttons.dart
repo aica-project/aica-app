@@ -19,7 +19,9 @@ class NavigationButtons extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: currentStep > 0
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.end,
         children: [
           if (currentStep > 0)
             TextButton(
@@ -28,10 +30,17 @@ class NavigationButtons extends StatelessWidget {
             ),
           ElevatedButton(
             onPressed: onNext,
-            child: Text(isLastStep ? 'Terminer' : 'Suivant'),
+            child: Text(getButtonText()),
           ),
         ],
       ),
     );
+  }
+
+  String getButtonText() {
+    if (currentStep == 1) {
+      return 'Plus tard';
+    }
+    return isLastStep ? 'Terminer' : 'Suivant';
   }
 }

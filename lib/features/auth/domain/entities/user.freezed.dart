@@ -22,6 +22,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get token => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   String? get photoUrl => throw _privateConstructorUsedError;
   bool get isProfileComplete => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $UserCopyWith<$Res> {
   $Res call(
       {String id,
       String email,
+      String token,
       String? displayName,
       String? photoUrl,
       bool isProfileComplete});
@@ -65,6 +67,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? email = null,
+    Object? token = null,
     Object? displayName = freezed,
     Object? photoUrl = freezed,
     Object? isProfileComplete = null,
@@ -77,6 +80,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String,
       displayName: freezed == displayName
           ? _value.displayName
@@ -104,6 +111,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   $Res call(
       {String id,
       String email,
+      String token,
       String? displayName,
       String? photoUrl,
       bool isProfileComplete});
@@ -123,6 +131,7 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = null,
+    Object? token = null,
     Object? displayName = freezed,
     Object? photoUrl = freezed,
     Object? isProfileComplete = null,
@@ -135,6 +144,10 @@ class __$$UserImplCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
               as String,
       displayName: freezed == displayName
           ? _value.displayName
@@ -158,6 +171,7 @@ class _$UserImpl implements _User {
   const _$UserImpl(
       {required this.id,
       required this.email,
+      required this.token,
       this.displayName,
       this.photoUrl,
       this.isProfileComplete = false});
@@ -170,6 +184,8 @@ class _$UserImpl implements _User {
   @override
   final String email;
   @override
+  final String token;
+  @override
   final String? displayName;
   @override
   final String? photoUrl;
@@ -179,7 +195,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, displayName: $displayName, photoUrl: $photoUrl, isProfileComplete: $isProfileComplete)';
+    return 'User(id: $id, email: $email, token: $token, displayName: $displayName, photoUrl: $photoUrl, isProfileComplete: $isProfileComplete)';
   }
 
   @override
@@ -189,6 +205,7 @@ class _$UserImpl implements _User {
             other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.token, token) || other.token == token) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
             (identical(other.photoUrl, photoUrl) ||
@@ -200,7 +217,7 @@ class _$UserImpl implements _User {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, email, displayName, photoUrl, isProfileComplete);
+      runtimeType, id, email, token, displayName, photoUrl, isProfileComplete);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -222,6 +239,7 @@ abstract class _User implements User {
   const factory _User(
       {required final String id,
       required final String email,
+      required final String token,
       final String? displayName,
       final String? photoUrl,
       final bool isProfileComplete}) = _$UserImpl;
@@ -232,6 +250,8 @@ abstract class _User implements User {
   String get id;
   @override
   String get email;
+  @override
+  String get token;
   @override
   String? get displayName;
   @override

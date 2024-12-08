@@ -48,4 +48,4 @@ coverage/
 # Firebase and other secrets
 *.key
 *.json
-.env
+*.env*

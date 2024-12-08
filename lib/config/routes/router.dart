@@ -96,7 +96,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           pageBuilder: (context, state) => buildPageWithDefaultTransition(
                 context: context,
                 state: state,
-                child: const AuthScreen(),
+                child: const CompleteProfileScreen(),
               )),
 
       GoRoute(
@@ -104,7 +104,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) => buildPageWithDefaultTransition(
           context: context,
           state: state,
-          child: const AuthScreen(),
+          child: const CompleteProfileScreen(),
         ),
       ),
     ],

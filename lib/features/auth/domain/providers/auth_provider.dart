@@ -26,7 +26,16 @@ class Auth extends _$Auth {
   Future<void> _initializeAuth() async {
     try {
       final user = await _authService.getCurrentUser();
+
       if (user != null) {
+        final isUserExist =
+            await _authService.isUserExist(user.email, user.token);
+
+        if (!isUserExist) {
+          state = const AuthState(status: AuthStatus.unauthenticated);
+          return;
+        }
+
         state = AuthState(
           status: user.isProfileComplete
               ? AuthStatus.authenticated

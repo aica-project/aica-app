@@ -52,6 +52,8 @@ dependencies:
   riverpod_annotation: ^2.6.1
   freezed_annotation: ^2.4.4
   json_annotation: ^4.9.0
+  args: ^2.6.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +83,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/icons/google-icon.svg
     - assets/icons/apple-icon.svg
     - assets/icons/marketing.svg
@@ -108,3 +111,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+executables:
+  aica: aica_cli.dart

@@ -1,8 +1,12 @@
+import 'package:aica_app/shared/clients/authenticated_api_client.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import '../domain/entities/user.dart';
 import '../domain/entities/auth_failure.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 part 'auth_service.g.dart';
 
@@ -26,9 +30,23 @@ class AuthService extends _$AuthService {
     try {
       final firebaseUser = _firebaseAuth.currentUser;
       if (firebaseUser == null) return null;
+      await getIdToken(firebaseUser);
+
       return _createUserFromFirebase(firebaseUser);
     } on Exception catch (e) {
       throw AuthFailure.fromException(e);
+    }
+  }
+
+  Future<bool> isUserExist(email, token) async {
+    final AuthenticatedApiClient apiClient = AuthenticatedApiClient();
+    final response =
+        await apiClient.post("users/check-user-exist", {"email": email});
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -146,12 +164,22 @@ class AuthService extends _$AuthService {
   }
 
   Future<bool> _checkProfileComplete(firebase_auth.User user) async {
-    // You can customize this based on your requirements
     return user.displayName != null && user.email != null;
+  }
+
+  Future<String> getIdToken(firebase_auth.User user) async {
+    final token = await user.getIdToken(true);
+
+    if (token == null) {
+      throw const AuthFailure.notAuthenticated();
+    } else {
+      return token;
+    }
   }
 
   Future<User> _createUserFromFirebase(firebase_auth.User firebaseUser) async {
     final isProfileComplete = await _checkProfileComplete(firebaseUser);
+    final token = await getIdToken(firebaseUser);
 
     return User(
       id: firebaseUser.uid,
@@ -159,6 +187,7 @@ class AuthService extends _$AuthService {
       displayName: firebaseUser.displayName,
       photoUrl: firebaseUser.photoURL,
       isProfileComplete: isProfileComplete,
+      token: token,
     );
   }
 }
